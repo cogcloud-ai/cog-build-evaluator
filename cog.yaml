@@ -1,0 +1,54 @@
+schema: openteams/cog-manifest [0.1]
+id: openteams/cog-build-evaluator
+version: 0.1.0
+summary: 'Designs independent Cog acceptance cases and assesses supplied candidate
+  evidence.
+
+  '
+license: BSD-3-Clause
+kind: context
+owner: trent@openteams.com
+frames: []
+context:
+  instructions: context/system.md
+  input_schema: context/input-schema.json
+  output_schema: context/output-schema.json
+  output_example: context/output-example.json
+requires:
+- capability: model-endpoint/openai-compatible
+  locality: any
+  satisfied_by:
+    cog: openteams/cog-qwen3b
+    version: '>=0.1.0'
+    source: ../cog-demo/cog-qwen3b
+interfaces:
+- name: web-api
+  kind: http-json
+  task: serve
+  endpoint: http://127.0.0.1:8112/ask
+  audience: usage
+  default: true
+- name: cli
+  kind: command
+  task: ask
+  audience: usage
+- name: health
+  kind: command
+  task: check
+  audience: lifecycle
+io:
+  accepts:
+  - task_request
+  produces:
+  - cog_evaluation
+memory: none
+prohibits:
+- execute_candidate_code
+- approve_release
+- modify_candidate
+evaluation:
+  fixtures:
+  - evals/smoke.fixture.yaml
+  - evals/insufficient.fixture.yaml
+  - evals/adversarial.fixture.yaml
+  - evals/boundary.fixture.yaml

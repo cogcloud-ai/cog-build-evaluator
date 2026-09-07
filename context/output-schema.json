@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "abstained": {
+      "type": "boolean"
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "pass",
+        "revise",
+        "insufficient_evidence",
+        "abstained"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "test_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "criterion_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "happy",
+              "insufficient",
+              "adversarial",
+              "boundary"
+            ]
+          },
+          "input": {
+            "type": "object"
+          },
+          "expected_behavior": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "criterion_ids",
+          "category",
+          "input",
+          "expected_behavior"
+        ]
+      },
+      "minItems": 0
+    },
+    "assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "criterion_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "not_tested"
+            ]
+          },
+          "rationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "evidence_quote": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "criterion_id",
+          "status",
+          "rationale",
+          "evidence_ids",
+          "evidence_quote"
+        ]
+      },
+      "minItems": 0
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "error",
+              "warning"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "severity",
+          "path",
+          "quote",
+          "detail"
+        ]
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "abstained",
+    "classification",
+    "reason",
+    "test_cases",
+    "assessments",
+    "findings"
+  ]
+}
