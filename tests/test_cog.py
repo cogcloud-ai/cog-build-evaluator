@@ -132,6 +132,16 @@ class EvaluationChecks(unittest.TestCase):
         self.payload['assessments'][1] = self.payload['assessments'][0]
         self.assertTrue(core.validate_output(self.payload, self.bundle))
 
+    def test_plan_rejects_procedure_instead_of_candidate_input(self):
+        self.bundle['operation'] = 'plan'
+        self.payload['classification'] = 'planned'
+        self.payload['test_cases'][0]['input'] = {'construction': 'Generate a matrix of test inputs.'}
+        self.assertTrue(any('one concrete schema-valid candidate bundle' in p['detail'] for p in core.validate_output(self.payload, self.bundle)))
+
+    def test_case_schema_never_fetches_remote_refs(self):
+        self.bundle['contract']['input_schema'] = {'$ref': 'https://example.com/schema'}
+        self.assertTrue(any('local references' in p['detail'] for p in core.validate_output(self.payload, self.bundle)))
+
     def test_plan_cannot_claim_execution(self):
         self.evidence(); self.bundle['operation'] = 'plan'; self.payload['classification'] = 'planned'
         self.assertTrue(core.validate_output(self.payload, self.bundle))

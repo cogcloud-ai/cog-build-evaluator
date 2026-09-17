@@ -74,3 +74,22 @@ pixi run python ../cog-spec/tools/validate_cog.py .
 
 Only src/task_logic.py is author-owned under src; shared Smith machinery remains
 hash-verified. The Op owns execution, retries, durable records and final Gates.
+
+## Workbench suite integration
+
+The declared `composition` interface lets workbench prepare the packaged context
+and run this Cog's existing checks around an external harness turn. Workbench
+can execute planned cases against an exact packaged source snapshot and produce
+a fingerprinted review request. Its execution status describes envelope and
+packaged-check completion; this evaluator still assesses the acceptance criteria.
+Subscription compositions are labeled as system evidence, never bare-model
+benchmarks. Separate author/evaluator Cogs do not prove model independence.
+
+### Executable case boundary
+
+Every planned case input is one concrete bundle that validates against the candidate's
+accepted input schema and is sent unchanged to that Cog. Matrices, procedures, output
+mutation instructions and input-construction recipes are not supported case inputs.
+Invalid-input validation, output mutation, capacity and external-side-effect checks
+need separately supplied execution evidence. Ordinary successful turns do not prove
+those properties. The reviewer must retain insufficient evidence where necessary.
