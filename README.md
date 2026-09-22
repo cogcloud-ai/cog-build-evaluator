@@ -93,3 +93,10 @@ mutation instructions and input-construction recipes are not supported case inpu
 Invalid-input validation, output mutation, capacity and external-side-effect checks
 need separately supplied execution evidence. Ordinary successful turns do not prove
 those properties. The reviewer must retain insufficient evidence where necessary.
+
+## License
+
+Copyright 2026 OpenTeams. Licensed under the [Apache License 2.0](LICENSE).
+Third-party dependencies and external model services retain their own licenses
+and terms. Previously published BSD-3-Clause versions remain available under
+that license.

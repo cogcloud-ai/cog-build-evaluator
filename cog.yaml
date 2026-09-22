@@ -5,7 +5,7 @@ summary: 'Designs independent Cog acceptance cases and assesses supplied candida
   evidence.
 
   '
-license: BSD-3-Clause
+license: Apache-2.0
 kind: context
 owner: trent@openteams.com
 frames: []
