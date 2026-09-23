@@ -146,6 +146,14 @@ class EvaluationChecks(unittest.TestCase):
         self.evidence(); self.bundle['operation'] = 'plan'; self.payload['classification'] = 'planned'
         self.assertTrue(core.validate_output(self.payload, self.bundle))
 
+    def test_review_can_return_only_targeted_reproducers(self):
+        self.payload['test_cases']=self.payload['test_cases'][:1]
+        self.assertEqual(core.validate_output(self.payload,self.bundle),[])
+        self.payload['test_cases']=[]
+        self.assertEqual(core.validate_output(self.payload,self.bundle),[])
+        self.bundle['operation']='plan';self.payload['classification']='planned'
+        self.assertTrue(core.validate_output(self.payload,self.bundle))
+
     def test_fingerprint_is_order_independent_but_contract_sensitive(self):
         self.bundle['files'].append({'path': 'b.py', 'content': 'b'})
         old = logic.candidate_sha256(self.bundle)

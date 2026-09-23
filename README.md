@@ -27,6 +27,10 @@ HTTP use the same schema and envelope v1. Model identity is recorded per result.
    does not execute candidate code. Preserve observed outputs and test outcomes.
 3. Attach evidence, switch to `operation: review`, and invoke `ask` again.
 
+Planning must cover all criteria and all four case categories. A review may
+return only targeted follow-up cases, or none; it must still assess every
+criterion with the same evidence and grounding requirements.
+
 Each evidence record contains `id`, `criterion_id`, `candidate_sha256`, `kind`
 (`execution` or `inspection`), `status` (`passed`, `failed`, `not_run`), and
 `text` containing the actual observation. Compute the candidate fingerprint with:
@@ -77,6 +81,14 @@ hash-verified. The Op owns execution, retries, durable records and final Gates.
 
 ## Workbench suite integration
 
+For native Op execution through a Workbench provider, activate an already admitted
+binding with `suite activate-composition --context cog-build-evaluator --binding-id
+ID --revision N`. The `ask-composed` usage task accepts `--request` or `--bundle`
+with the same evaluator input. The ignored `.op-composition.json` installation
+record pins the consumer, binding revision and local host; the Op runtime hashes
+that file when deciding reuse on resume. The canonical usage adapter lives in
+`cog-workbench/bridges/composed_usage.py`. Native `ask` is unchanged.
+
 The declared `composition` interface lets workbench prepare the packaged context
 and run this Cog's existing checks around an external harness turn. Workbench
 can execute planned cases against an exact packaged source snapshot and produce
@@ -93,3 +105,26 @@ mutation instructions and input-construction recipes are not supported case inpu
 Invalid-input validation, output mutation, capacity and external-side-effect checks
 need separately supplied execution evidence. Ordinary successful turns do not prove
 those properties. The reviewer must retain insufficient evidence where necessary.
+
+Pure code candidates may declare `contract.kind: code` (omitted kind remains
+legacy context). Workbench can execute their planned cases through the native
+usage task without a model binding. Its native evidence status records successful
+observation of an envelope, not acceptance of the payload or problems. Review
+must compare actual behavior to the criterion, including expected refusals and
+warnings. The evaluator itself remains a model-backed context Cog.
+
+When an author result uses compact contract/material references, obtain its fully
+expanded snapshot using Workbench `suite snapshot` or the author's exporter.
+Evaluate and fingerprint those full contents, not the raw reference-form output.
+
+## License
+
+Copyright 2026 OpenTeams. Licensed under the [Apache License 2.0](LICENSE).
+Third-party dependencies and external model services retain their own licenses
+and terms. Previously published BSD-3-Clause versions remain available under
+that license.
+
+## Public preview
+
+See the [suite guide](https://github.com/cogcloud-ai/cog-op-builder/blob/main/docs/repositories.md)
+for repository roles, supported setup, and current limitations.

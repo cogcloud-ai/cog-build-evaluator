@@ -3,7 +3,7 @@ type: cog [0.1]
 name: cog-build-evaluator
 description: "Context Cog. Designs independent Cog acceptance cases and assesses supplied candidate evidence. Depends on a Cog providing an OpenAI-compatible model endpoint."
 version: "0.1.0"
-license: BSD-3-Clause
+license: Apache-2.0
 publisher: OpenTeams
 manifest: cog.yaml
 manifest_schema: openteams/cog-manifest [0.1]
@@ -42,3 +42,8 @@ may contain contract problems; the caller's Gate decides acceptance. Locality is
 declared in the manifest; the installed binding chooses a compatible model.
 The workspace-relative default satisfier is optional convenience, not a bundled
 model. Independent installations must supply their own model binding.
+
+The declared `ask-composed` usage task supports the same input through a
+separately activated Workbench composition. The local `.op-composition.json`
+installation record pins the consumer, provider revision and host; task input
+cannot choose a provider. See README.md. Native `ask` remains available.

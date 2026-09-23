@@ -92,6 +92,14 @@
             ]
           },
           "minItems": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "context",
+            "code"
+          ],
+          "description": "Omitted means legacy context; code currently supports pure work with no external reaches."
         }
       },
       "required": [

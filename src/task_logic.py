@@ -99,7 +99,7 @@ def check_output(parsed, bundle):
     if len(case_ids) != len(set(case_ids)):
         out.append(problem('Test case IDs must be unique.'))
     categories = {c.get('category') for c in cases if isinstance(c.get('category'), str)}
-    if not {'happy', 'insufficient', 'adversarial', 'boundary'} <= categories:
+    if bundle.get('operation') == 'plan' and not {'happy', 'insufficient', 'adversarial', 'boundary'} <= categories:
         out.append(problem('Test cases must cover all four required categories.'))
     covered = set()
     try:
@@ -118,7 +118,7 @@ def check_output(parsed, bundle):
             if not cited <= ids:
                 out.append(problem('Test case cites unknown criteria.'))
             covered |= cited
-    if covered != ids:
+    if bundle.get('operation') == 'plan' and covered != ids:
         out.append(problem('Test cases must cover every criterion.'))
     sources = {f['path']: f.get('content', '') for f in rows(bundle.get('files')) if isinstance(f.get('path'), str)}
     findings = rows(parsed.get('findings'))
