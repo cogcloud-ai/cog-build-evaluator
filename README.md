@@ -1,7 +1,7 @@
 # Cog Build Evaluator
 
 Independent acceptance planning and evidence assessment for a Cog-building Op.
-This is a separate context Cog from cog-author and from the older demo evaluator.
+This is a separate context Cog, independent of cog-author.
 
 ## Run
 
@@ -13,7 +13,8 @@ pixi run check -- --deep
 pixi run ask -- --bundle examples/sample-bundle.json
 ```
 
-The default model reference is workspace-relative. Independent installations
+The default model reference in `cog.yaml` is a legacy sibling-checkout
+convenience and is not distributed with this Cog. Independent installations
 must supply an available compatible model with `resolve` or `use`. Both CLI and
 HTTP use the same schema and envelope v1. Model identity is recorded per result.
 
@@ -73,7 +74,6 @@ The test suite does not establish the judgment quality of any live model.
 
 ```sh
 pixi run python ../cog-smith/src/cogsmith_cli.py check . --tests
-pixi run python ../cog-spec/tools/validate_cog.py .
 ```
 
 Only src/task_logic.py is author-owned under src; shared Smith machinery remains
@@ -86,8 +86,9 @@ binding with `suite activate-composition --context cog-build-evaluator --binding
 ID --revision N`. The `ask-composed` usage task accepts `--request` or `--bundle`
 with the same evaluator input. The ignored `.op-composition.json` installation
 record pins the consumer, binding revision and local host; the Op runtime hashes
-that file when deciding reuse on resume. The canonical usage adapter lives in
-`cog-workbench/bridges/composed_usage.py`. Native `ask` is unchanged.
+that file when deciding reuse on resume. The canonical usage adapter is
+cog-workbench's [`bridges/composed_usage.py`](https://github.com/cogcloud-ai/cog-workbench/blob/main/bridges/composed_usage.py).
+Native `ask` is unchanged.
 
 The declared `composition` interface lets workbench prepare the packaged context
 and run this Cog's existing checks around an external harness turn. Workbench
