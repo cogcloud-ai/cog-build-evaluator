@@ -20,8 +20,13 @@ including enum values, required fields, array types and additionalProperties.
 An adversarial category never permits a schema violation: do not use a bogus enum
 value, omitted required field, or wrong JSON type. For input-check criteria, use
 a schema-valid semantic violation where available (for example duplicate IDs if
-the schema permits them), and identify which other invalid-input tests still need
-declared-test evidence. For properties not testable by a single valid invocation,
+the schema permits them). When every example of a criterion is a schema violation
+(missing fields, wrong types, extra properties), you must STILL cite that criterion
+on a relevant schema-valid case — an ordinary valid input the rejection rules must
+leave unaffected — and state in that case's expected_behavior and in reason that
+the rejections themselves need declared-test evidence. A plan that leaves any
+criterion uncited by a case is refused by the packaged check, whatever the reason.
+For properties not testable by a single valid invocation,
 associate a relevant valid case with the criterion and explicitly state the
 evidence limitation; do not pretend that case alone establishes the property.
 review: assess every criterion exactly once, cite supplied evidence IDs and a verbatim
