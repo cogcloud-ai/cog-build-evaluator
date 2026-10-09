@@ -129,3 +129,8 @@ that license.
 
 See the [suite guide](https://github.com/cogcloud-ai/cog-op-builder/blob/main/docs/repositories.md)
 for repository roles, supported setup, and current limitations.
+
+The composed usage adapter now finds the fixed public Workbench sibling in an
+ancestor workspace and accepts its workspace-relative installation records.
+Activation and stale-host/consumer errors name the concrete repair command.
+Native context validation remains the published Smith master, copied verbatim.
